@@ -15,7 +15,9 @@ Will start out with just finding malicious IPs
 
 ## Technologies and Rationale
 **Storage**: SQLite
+
 Simple, Easy to setup, Familiarity
 
 **Web Framework**: FastAPI (Python)
+
 Familiarity, Easy to use, Type system
