@@ -43,8 +43,11 @@ templates = Jinja2Templates(directory="templates")
 
 
 @app.get("/")
-async def home(request: Request):
-    return templates.TemplateResponse(request=request, name="home.html", context={})
+async def home(request: Request, db: Session = Depends(database.get_db)):
+    latest = db.query(models.Threat).order_by(models.Threat.date.desc()).first()
+    return templates.TemplateResponse(
+        request=request, name="home.html", context={"last_updated": latest.date}
+    )
 
 
 from fastapi import Query
