@@ -1,8 +1,10 @@
-from pydantic import BaseModel, Json, UUID4, field_serializer
+from pydantic import BaseModel, Json, UUID4, field_serializer, ConfigDict
 from datetime import datetime
 
 
 class Threat(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     id: UUID4
     ipv4: str | None
     url: str | None
@@ -18,7 +20,3 @@ class Threat(BaseModel):
     @field_serializer("date")
     def serialize_date(self, date: datetime):
         return date.isoformat()
-
-    class Config:
-        orm_mode = True
-        from_attributes = True
