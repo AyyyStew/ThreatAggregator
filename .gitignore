@@ -1,3 +1,7 @@
+# My own
+config/secrets.py
+threats.db
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
