@@ -35,4 +35,4 @@ jobs:
         with:
           name: Pytest Results
           path: pytest-results.xml
-          reporter: junit
+          reporter: xunit
