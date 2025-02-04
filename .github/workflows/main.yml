@@ -1,0 +1,39 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: self-hosted
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Pytest
+        run: pytest --junitxml=pytest-results.xml
+        working-directory: ./app
+
+      - name: Upload Pytest Results
+        uses: actions/upload-artifact@v3
+        with:
+          name: pytest-results
+          path: app/pytest-results.xml
+
+      - name: Publish Test Results
+        uses: dorny/test-reporter@v1
+        with:
+          name: Pytest Results
+          path: app/pytest-results.xml
+          reporter: junit
