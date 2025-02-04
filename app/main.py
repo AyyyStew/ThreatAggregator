@@ -8,7 +8,8 @@ from fastapi.templating import Jinja2Templates
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.jobstores.memory import MemoryJobStore
 from sqlalchemy.orm import Session
-from . import models, schemas, database, scripts
+from . import models, schemas, database
+from app.scripts import getData
 
 
 # Setup database if not created
@@ -23,7 +24,7 @@ scheduler = AsyncIOScheduler(jobstore=jobstores)
 @scheduler.scheduled_job("interval", hours=1)
 def pullData():
     print("Getting Data")
-    scripts.getData()
+    getData.getData()
 
 
 # Lifespan method. Used to control setup and teardown in fast api applicaiton lifecycle
@@ -97,4 +98,4 @@ async def download(db: Session = Depends(database.get_db)):
 
 # Jobs to do after everthing has started
 # Fetch data to populate database
-scripts.getData()
+getData.getData()
