@@ -22,9 +22,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run Pytest
-        run: |
-          cd app
-          pytest --junitxml=pytest-results.xml
+        run: pytest --junitxml=pytest-results.xml --rootdir=app
 
       - name: Upload Pytest Results
         uses: actions/upload-artifact@v4
