@@ -30,3 +30,20 @@ jobs:
           name: pytest-results
           path: pytest-results.xml
 
+  build-and-push:
+    name: Build & Push Docker Image
+    needs: test # Only runs if tests pass
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
+      - name: Build Docker Image
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/threat-aggregator .
+
+      - name: Push Docker Image
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/threat-aggregator-app
