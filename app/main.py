@@ -97,4 +97,4 @@ async def download(db: Session = Depends(database.get_db)):
 
 # Jobs to do after everthing has started
 # Fetch data to populate database
-# scripts.getData()
+scripts.getData()
