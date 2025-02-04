@@ -136,6 +136,34 @@ docker run -d --name threat-aggregator -p 80:80 -v /data/:/code/app/data ayyyste
 
 ---
 
+## Windows Firewall Integration
+
+To enhance security, the `automateAddingToWindowsFirewall.ps1` script reads threat data from the API and automatically adds malicious IPs to the **Windows Firewall** blocklist. This ensures that known bad actors are blocked at the system level.
+
+### Running the Script
+
+1. **Change the data url to match your deployments**
+
+   ```powershell
+   $dataUrl = "Fill this out with your endpoint"
+   ```
+
+2. **Run the Script**  
+   Execute the PowerShell script to fetch threat intelligence and apply firewall rules:
+
+   ```powershell
+   .\automateAddingToWindowsFirewall.ps1
+   ```
+
+3. **Automate with Task Scheduler (Optional)**  
+   To run this script periodically, set up a scheduled task in Windows Task Scheduler.
+
+### How It Works
+
+- Queries the Threat Aggregator API for malicious IPs.
+- Adds each IP to **Windows Defender Firewall** block rules. Each rule gets added to the AutoBlockedIPs group for easier management. You can change the name of the group in the script
+- Ensures real-time protection by updating firewall rules automatically.
+
 ## Running Tests
 
 Run tests with **pytest**:
