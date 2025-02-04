@@ -6,6 +6,8 @@ Threat Aggregator is a threat intelligence feed aggregator that collects Malicio
 
 This project was built as both an **educational tool** to sharpen automation, CI/CD, and programming skills, as well as a practical resource for aggregating threat intelligence.
 
+<img alt="Homepage of the application" src="./docs/homepage.png" width=500>
+
 ## Features
 
 - **Automated Data Collection**: Fetches and updates IoCs from multiple threat intelligence sources.
@@ -25,7 +27,7 @@ This project was built as both an **educational tool** to sharpen automation, CI
 
 ---
 
-## Database Schema
+## Data Schema
 
 The collected data is structured as follows:
 
@@ -38,6 +40,8 @@ source: str
 original_data: Json | None
 abuseIPDBData: Json | None = None
 ```
+
+_(Thanks Pydantic!)_
 
 ---
 
@@ -144,7 +148,7 @@ pytest
 
 ## High Level Architecture
 
-<img src="./docs/threatAggregatorBigPicture.drawio.png" width=400>
+<img src="./docs/threatAggregatorBigPicture.drawio.png" alt="Diagram showing high level architecture of the code in this repo" width=400>
 
 ---
 
@@ -157,7 +161,7 @@ The GitHub Actions workflow handles:
 - **Pushing** the container to Docker Hub.
 - **Deploying** the container on a **Proxmox VM** via SSH.
 
-<img src="./docs//threatAggregatorCICD.drawio.png" width=500>
+<img src="./docs//threatAggregatorCICD.drawio.png" alt="CICD Pipeline Diagram" width=500>
 
 ---
 
