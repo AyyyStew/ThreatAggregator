@@ -7,7 +7,7 @@ from datetime import datetime
 from uuid import uuid4, UUID
 
 # Import the functions we want to test from getData.py
-from scripts.getData import (
+from app.scripts.getData import (
     fetch_emerging_threats,
     fetch_feodotracker_threats,
     fetch_urlhaus_threats,
@@ -133,7 +133,7 @@ def fake_get_db(monkeypatch):
     """
     fake_db = FakeDB(ips=[], urls=[])
     # Import the getData module (not just the getData() function) to override get_db.
-    import scripts.getData as getData_module
+    import app.scripts.getData as getData_module
 
     monkeypatch.setattr(getData_module, "get_db", lambda: iter([fake_db]))
     return fake_db

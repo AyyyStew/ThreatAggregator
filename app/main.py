@@ -1,3 +1,4 @@
+import os
 from typing import List
 from datetime import date
 from contextlib import asynccontextmanager
@@ -39,8 +40,13 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
-app.mount("/static", StaticFiles(directory="static"), name="static")
-templates = Jinja2Templates(directory="templates")
+current_file_dir = os.path.dirname(os.path.realpath(__file__))
+static_files_dir = os.path.join(current_file_dir, "static")
+templates_files_dir = os.path.join(current_file_dir, "templates")
+
+# Mount the static directory
+app.mount("/static", StaticFiles(directory=static_files_dir), name="static")
+templates = Jinja2Templates(directory=templates_files_dir)
 
 
 @app.get("/")
