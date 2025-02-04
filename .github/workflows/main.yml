@@ -30,9 +30,9 @@ jobs:
           name: pytest-results
           path: pytest-results.xml
 
-      - name: Publish Test Results
-        uses: dorny/test-reporter@v1
+      - name: Upload Pytest Results
+        uses: actions/upload-artifact@v3
         with:
-          name: Pytest Results
+          name: pytest-results
           path: pytest-results.xml
-          reporter: xunit
+
