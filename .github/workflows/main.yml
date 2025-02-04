@@ -47,3 +47,21 @@ jobs:
 
       - name: Push Docker Image
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/threat-aggregator
+
+  deploy:
+    name: Deploy to Docker VM
+    needs: build-and-push
+    runs-on: self-hosted
+
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.DOCKER_VM_IP }}
+          username: ${{ secrets.DOCKER_VM_USER }}
+          key: ${{ secrets.DOCKER_VM_SSH_KEY }}
+          script: |
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/threat-aggregator:latest
+            docker stop threat-aggregator || true
+            docker rm threat-aggregator || true
+            docker run -d --name threat-aggregator -p 80:80 -v ${pwd}/threat-aggregator-data/:/code/app/data ${{ secrets.DOCKERHUB_USERNAME }}/threat-aggregator:latest
