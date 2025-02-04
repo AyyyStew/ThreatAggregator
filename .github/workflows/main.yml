@@ -46,4 +46,4 @@ jobs:
         run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/threat-aggregator .
 
       - name: Push Docker Image
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/threat-aggregator-app
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/threat-aggregator
