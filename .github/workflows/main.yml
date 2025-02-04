@@ -28,11 +28,11 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: pytest-results
-          path: app/pytest-results.xml
+          path: pytest-results.xml
 
       - name: Publish Test Results
         uses: dorny/test-reporter@v1
         with:
           name: Pytest Results
-          path: app/pytest-results.xml
+          path: pytest-results.xml
           reporter: junit
